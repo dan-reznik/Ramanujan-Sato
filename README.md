@@ -7,10 +7,9 @@ Formulas for π (1917):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
-We will attempt to calculate π using this fast-converging series. The
-large factorials and exponents in the series’ terms will quickly
-overflow R’s 32-bit floats (range: 1.4e-45 to 3e38). We will be using
-arbitrary-precision arithmetic from the `Rmpfr` package.
+The large factorials and exponents in the series’ terms will quickly
+under/overflow R’s 32-bit floats (range: 1.4e-45 to 3e38). We will be
+using arbitrary-precision arithmetic from the `Rmpfr` package.
 
 -----
 
