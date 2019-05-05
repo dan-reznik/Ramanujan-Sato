@@ -3,8 +3,8 @@ Computing π w/ Ramanujan-Sato
 
 [Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan)
 was one of history’s most gifted Mathematicians. In 1917 he discovered
-the following formula for 1/π known as the "[Ramanujan-Sato
-Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series):
+the following formula for 1/π known as the “[Ramanujan-Sato
+Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
