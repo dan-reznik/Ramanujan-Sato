@@ -27,8 +27,8 @@ the three large terms in the series, for k=1 to 5:
 Notice that for small k, \(396^(4k)\) grows fastest, though above a
 certain k factorials will take over, k\! \~ O(k^k).
 
-53-bit doubles in `R` are limited to 22 significant digits. So even for
-k=4, this term will be truncated:
+53-bit doubles in `R` are limited to 22 significant digits. So for k\>2,
+this term will be truncated. Take k=4 as an example:
 
 ``` r
 print(396^(4*4),digits=22)
