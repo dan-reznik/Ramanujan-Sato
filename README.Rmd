@@ -17,13 +17,13 @@ One of [Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_ser
 knitr::include_graphics("pics/ramanujan-sato.png")
 ```
 
-Consider the $396^(4k)$ term in the series. Suppose k=4. Computing this value in R yields a small number of significant digits:
+Consider the $396^(4k)$ term in the series. Suppose k=4. R 53-bit doubles can represent up to 22 significant digits:
 
 ```{r}
-396^(4*4)
+print(396^(4*4),digits=22)
 ```
 
-To properly represent the large terms in the series, we will use arbitrary-precision numbers and operations from the excellent [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf) package. When represented with 120 bits, the term above becomes:
+Arbitrary-precision numbers are available with the excellent [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf) package. With 120-bits, all the 42 digits of the above number are shown:
 
 ```{r}
 Rmpfr::mpfr(396, 120)^(4*4)

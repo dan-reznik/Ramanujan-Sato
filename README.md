@@ -7,18 +7,17 @@ Formulas for π (1917):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
-Consider the \(396^(4k)\) term in the series. Suppose k=4. Computing
-this value in R yields a small number of significant digits:
+Consider the \(396^(4k)\) term in the series. Suppose k=4. R 53-bit
+doubles can represent up to 22 significant digits:
 
 ``` r
-396^(4*4)
-#> [1] 3.656983e+41
+print(396^(4*4),digits=22)
+#> [1] 3.6569832807775449e+41
 ```
 
-To properly represent the large terms in the series, we will use
-arbitrary-precision numbers and operations from the excellent
+Arbitrary-precision numbers are available with the excellent
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
-package. When represented with 120 bits, the term above becomes:
+package. With 120-bits, all the 42 digits of the above number are shown:
 
 ``` r
 Rmpfr::mpfr(396, 120)^(4*4)
