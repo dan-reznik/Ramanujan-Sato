@@ -33,14 +33,16 @@ sqrt2 <- sqrt(mpfr(2L, bits))
 rs_coeff <- 9801L/(2L*sqrt2)
 
 rs_term <- function(k) {
-  (factorial(4L*k)*(26390L*k+1103L))/((factorial(k)*(396L^k))^4L)
+  num <- factorial(4L*k)*(26390L*k+1103L)
+  den <- (factorial(k)*(396L^k))^4L
+  num/den
 }
 ```
 
 Calculates π w/ kmax iterations of the R-S formula:
 
 ``` r
-rs_cumsum <- function(kmax) {
+rs_series <- function(kmax) {
   terms <- rs_term(mpfr(0:(kmax-1),bits))
   (rs_coeff/cumsum(terms))
 }
@@ -49,7 +51,7 @@ rs_cumsum <- function(kmax) {
 Only 5 iterations and we’re pretty close:
 
 ``` r
-rs_cumsum(5)
+rs_series(5)
 ```
 
     ## 5 'mpfr' numbers of precision  120   bits 
@@ -62,7 +64,7 @@ rs_cumsum(5)
 Error from π computed internally by Rmpfr:
 
 ``` r
-rs_cumsum(5)-Const("pi",bits)
+rs_series(5)-Const("pi",bits)
 ```
 
     ## 5 'mpfr' numbers of precision  120   bits 
