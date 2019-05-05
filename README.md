@@ -17,7 +17,6 @@ Load libraries
 ``` r
 library(tidyverse)
 library(Rmpfr) # use this for arbitrary-precision floats
-source("util.R")
 ```
 
 We will be using 120 bits of representation precision.
@@ -33,8 +32,7 @@ sqrt2 <- sqrt(mpfr(2L, bits))
 rs_coeff <- 9801L/(2L*sqrt2)
 
 rs_term <- function(k) {
-  (factorial(4L*k)*(26390L*k+1103L))/
-  ((factorial(k)*(396L^k))^4L)
+  (factorial(4L*k)*(26390L*k+1103L))/((factorial(k)*(396L^k))^4L)
 }
 ```
 
