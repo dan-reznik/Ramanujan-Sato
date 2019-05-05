@@ -13,8 +13,8 @@ Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
 
 The incredible thing about this formula is its exponential speed of
 convergence. In turn this places strong requirements on the precision
-with which large numbers are represented. Tabulating the three large
-components involved, look at these three terms, for k=1 to 5:
+with which large numbers are represented. Below we show the growth of
+the three large terms in the series, for k=1 to 5:
 
 | k |       (4k)\! |   (k\!)^4 |     396^(4k) |
 | :-: | -----------: | --------: | -----------: |
