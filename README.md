@@ -19,13 +19,13 @@ library(tidyverse)
 library(Rmpfr) # use this for arbitrary-precision floats
 ```
 
-We will be using 120 bits of representation precision.
+We will be using 120 bits of representation precision:
 
 ``` r
 bits <- 120
 ```
 
-One term of the R-S series and its front coefficient
+One term of the R-S series and its front coefficient:
 
 ``` r
 sqrt2 <- sqrt(mpfr(2L, bits))
@@ -36,7 +36,7 @@ rs_term <- function(k) {
 }
 ```
 
-Calculates π w/ kmax iterations of the R-J formula:
+Calculates π w/ kmax iterations of the R-S formula:
 
 ``` r
 rs_cumsum <- function(kmax) {
@@ -45,7 +45,7 @@ rs_cumsum <- function(kmax) {
 }
 ```
 
-Only 5 iterations and we’re pretty close\!
+Only 5 iterations and we’re pretty close:
 
 ``` r
 rs_cumsum(5)
