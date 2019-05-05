@@ -37,7 +37,7 @@ We will be using 120 bits of representation precision:
 bits <- 120
 ```
 
-Consider the \(396^(4k)\) term in the series. Let \(k=4\). In R:
+Consider the \(396^(4k)\) term in the series. Suppose k=4. In R:
 
 ``` r
 396^(4*4)
@@ -45,13 +45,14 @@ Consider the \(396^(4k)\) term in the series. Let \(k=4\). In R:
 
     ## [1] 3.656983e+41
 
-However, when represented with 120 bits, the above becomes:
+However, when represented with 120 bits, the same number becomes:
 
 ``` r
-mpfr(396, bits)^(4*4) %>% Rmpfr::formatMpfr() %>% cat
+mpfr(396, bits)^(4*4)
 ```
 
-    ## 365698328077754498546241794891999342493696.
+    ## 1 'mpfr' number of precision  120   bits 
+    ## [1] 365698328077754498546241794891999342493696
 
 -----
 
