@@ -32,7 +32,9 @@ tibble::tibble(k=1:5,
   kableExtra::kable_styling(bootstrap_options = "striped", full_width = F,position="center")
 ```
 
-Notice that for small k, $396^(4k)$ is the larger term. Suppose k=4. `R` 53-bit doubles can represent up to 22 significant digits:
+Notice that for small k, $396^(4k)$ grows fastest, though above a certain k factorials will take over, k! ~ O(k^k).
+
+53-bit doubles in `R` are limited to 22 significant digits. So even for k=4, this term will be truncated:
 
 ```{r}
 print(396^(4*4),digits=22)

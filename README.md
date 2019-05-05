@@ -24,8 +24,11 @@ the three large terms in the series, for k=1 to 5:
 | 4 | 2.092279e+13 |    331776 | 3.656983e+41 |
 | 5 | 2.432902e+18 | 207360000 | 8.992982e+51 |
 
-Notice that for small k, \(396^(4k)\) is the larger term. Suppose k=4.
-`R` 53-bit doubles can represent up to 22 significant digits:
+Notice that for small k, \(396^(4k)\) grows fastest, though above a
+certain k factorials will take over, k\! \~ O(k^k).
+
+53-bit doubles in `R` are limited to 22 significant digits. So even for
+k=4, this term will be truncated:
 
 ``` r
 print(396^(4*4),digits=22)
