@@ -96,17 +96,16 @@ rs_series(5)
 #> [5] 3.141592653589793238462643383279502882
 ```
 
-Deviation from a high-precision π computed internally by Rmpfr shrinks
-at every iteration:
+Exponent of deviation from a high-precision π computed internally by
+Rmpfr. In 5 iterations, deviation is of the order of 10^-36:
 
 ``` r
-rs_series(5)-Const("pi",bits)
+(rs_series(5) - Const("pi", bits)) %>%
+  abs %>%
+  log10 %>%
+  round
 #> 5 'mpfr' numbers of precision  120   bits 
-#> [1]   7.642351242185135280574571263059095384e-8
-#> [2]   6.39536262443026510207448352094098835e-16
-#> [3]  5.682423256010174379301934938494086872e-24
-#> [4]  5.238529448733281520312260003831002306e-32
-#> [5] -3.009265538105056020399965535288948935e-36
+#> [1]  -7 -15 -23 -31 -36
 ```
 
 Mind-blowing convergence to the value of π afforded by the

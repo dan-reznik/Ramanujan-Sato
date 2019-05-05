@@ -90,10 +90,13 @@ Only 5 iterations and we're pretty close:
 rs_series(5)
 ```
 
-Deviation from a high-precision π computed internally by Rmpfr shrinks at every iteration:
+Exponent of deviation from a high-precision π computed internally by Rmpfr. In 5 iterations, deviation is of the order of 10^-36:
 
 ```{r}
-rs_series(5)-Const("pi",bits)
+(rs_series(5) - Const("pi", bits)) %>%
+  abs %>%
+  log10 %>%
+  round
 ```
 
 Mind-blowing convergence to the value of π afforded by the Ramanujan-Sato series! `r emo::ji("smile")`
