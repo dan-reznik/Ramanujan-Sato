@@ -106,6 +106,11 @@ Mind-blowing convergence of π digits through the Ramanujan-Sato series\!
   - N. Baruah, B. Berndt, H. Chan, “Ramanujan’s Series for 1/π: A
     Survey”, Mathematical Association of America, Aug-Sept 2009.
     [pdf](https://faculty.math.illinois.edu/~berndt/articles/monthly567-587.pdf)
+  - Wikipedia, “[Srinivasa
+    Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan)”
+  - M. Mächler, “Arbitrarily Accurate Computation with R: The Rmpfr
+    Package”, ETH Zurich, 2019.
+    [pdf](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
 
 -----
 
