@@ -58,8 +58,14 @@ Error from π computed internally by Rmpfr:
 rs_cumsum(5)-Const("pi",bits)
 ```
 
-π through Ramanujan-Sato is mind-blowing! `r emo::ji("smile")`
+Mind-blowing convergence of π digits! `r emo::ji("smile")`
 
 *** 
+
+### References:
+
+* N. Baruah, B. Berndt, H. Chan, "Ramanujan’s Series for 1/π: A Survey", Mathematical Association of America, Aug-Sept 2009. [pdf](https://faculty.math.illinois.edu/~berndt/articles/monthly567-587.pdf)
+
+***
 
 © 2019 Dan S. Reznik

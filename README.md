@@ -71,7 +71,15 @@ rs_cumsum(5)-Const("pi",bits)
     ## [4]  5.238529448733281520312260003831002306e-32
     ## [5] -3.009265538105056020399965535288948935e-36
 
-π through Ramanujan-Sato is mind-blowing\! 😄
+Mind-blowing convergence of π digits\! 😄
+
+-----
+
+### References:
+
+  - N. Baruah, B. Berndt, H. Chan, “Ramanujan’s Series for 1/π: A
+    Survey”, Mathematical Association of America, Aug-Sept 2009.
+    [pdf](https://faculty.math.illinois.edu/~berndt/articles/monthly567-587.pdf)
 
 -----
 
