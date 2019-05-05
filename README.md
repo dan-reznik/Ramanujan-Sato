@@ -12,13 +12,20 @@ Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
 The incredible thing about this formula is its exponential speed of
-convergence, owing to the \(396^(4k)\) term in the denominator. This
-places high requirements on number representation.
+convergence. In turn this places strong requirements on the precision
+with which large numbers are represented. Tabulating the three large
+components involved, look at these three terms, for k=1 to 5:
 
-Even for small k, this term will quickly contain more significant digits
-than provided by floating-point numbers in most programming languages.
-As an example, suppose k=4. R uses 53-bit doubles, which can represent
-up to 22 significant digits:
+| k |       (4k)\! |   (k\!)^4 |     396^(4k) |
+| :-: | -----------: | --------: | -----------: |
+| 1 | 2.400000e+01 |         1 | 2.459126e+10 |
+| 2 | 4.032000e+04 |        16 | 6.047300e+20 |
+| 3 | 4.790016e+08 |      1296 | 1.487107e+31 |
+| 4 | 2.092279e+13 |    331776 | 3.656983e+41 |
+| 5 | 2.432902e+18 | 207360000 | 8.992982e+51 |
+
+Notice that for small k, \(396^(4k)\) is the larger term. Suppose k=4.
+`R` 53-bit doubles can represent up to 22 significant digits:
 
 ``` r
 print(396^(4*4),digits=22)
@@ -27,8 +34,7 @@ print(396^(4*4),digits=22)
 
 Via the arbitrary-precision
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
-package and 120 bits precision, we can see the full 42 digits in the
-above number:
+package (using 120 bits), we can see the above with its full 42 digits:
 
 ``` r
 Rmpfr::mpfr(396, 120)^(4*4)
@@ -36,7 +42,9 @@ Rmpfr::mpfr(396, 120)^(4*4)
 #> [1] 365698328077754498546241794891999342493696
 ```
 
-So in what follows we will be using this library.
+Because total integer precision is imperative for each term in the RS
+summation, in what follows we will be using the arbitrary-precision
+library.
 
 ### Load the arbitrary-precision library
 
