@@ -96,7 +96,7 @@ Deviation from a high-precision π computed internally by Rmpfr shrinks at every
 rs_series(5)-Const("pi",bits)
 ```
 
-Mind-blowing convergence of π digits through the Ramanujan-Sato series! `r emo::ji("smile")`
+Mind-blowing convergence to the value of π afforded by the Ramanujan-Sato series! `r emo::ji("smile")`
 
 ***
 

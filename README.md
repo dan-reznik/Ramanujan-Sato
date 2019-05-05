@@ -109,8 +109,8 @@ rs_series(5)-Const("pi",bits)
 #> [5] -3.009265538105056020399965535288948935e-36
 ```
 
-Mind-blowing convergence of π digits through the Ramanujan-Sato series\!
-😄
+Mind-blowing convergence to the value of π afforded by the
+Ramanujan-Sato series\! 😄
 
 -----
 
