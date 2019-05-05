@@ -1,0 +1,67 @@
+---
+title: "Computing Pi w/ Ramanujan-Sato"
+output: github_document
+---
+
+One of [Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series) Formulas for $pi$ (1917):
+
+```{r,echo=F,out.width="50%",fig.align="center"}
+knitr::include_graphics("pics/ramanujan-sato.png")
+```
+
+To correctly calculate this series we will need floating point precision far superior to R's defaults. We will be using the `Rmpfr` package.
+
+***
+
+Load libraries
+
+```{r,message=F}
+library(tidyverse)
+library(Rmpfr) # use this for arbitrary-precision floats
+source("util.R")
+```
+
+We will be using 120 bits of representation precision.
+
+```{r}
+bits <- 120
+```
+
+One term of the R-S series and its front coefficient
+
+```{r}
+sqrt2 <- sqrt(mpfr(2L, bits))
+rs_coeff <- 9801L/(2L*sqrt2)
+
+rs_term <- function(k) {
+  (factorial(4L*k)*(26390L*k+1103L))/
+  ((factorial(k)*(396L^k))^4L)
+}
+```
+
+Calculates $pi$ from 1 to kmax+1 iterations:
+
+```{r}
+rs_cumsum <- function(kmax) {
+  terms <- rs_term(mpfr(0:kmax,bits))
+  (rs_coeff/cumsum(terms))
+}
+```
+
+Four iterations places the number pretty close to $pi$
+
+```{r}
+rs_cumsum(4)
+```
+
+Difference from $pi$ computed internally by Rmpfr:
+
+```{r}
+rs_cumsum(4)-Const("pi",bits)
+```
+
+Ramanujan-Sato convergence is astounding! `r emo::ji("smile")`
+
+*** 
+
+Dan S. Reznik, May 2019
