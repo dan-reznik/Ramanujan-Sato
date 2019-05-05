@@ -45,9 +45,8 @@ Rmpfr::mpfr(396, 120)^(4*4)
 #> [1] 365698328077754498546241794891999342493696
 ```
 
-Because total integer precision is imperative for each term in the RS
-summation, in what follows we will be using the arbitrary-precision
-library.
+Total integer precision is imperative in the series computation, so we
+start by loading the arbitrary-precision library.
 
 ### Load the arbitrary-precision library
 
