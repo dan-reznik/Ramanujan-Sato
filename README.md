@@ -7,19 +7,30 @@ Formulas for π (1917):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
-The large factorials and exponents in the series’ terms require more
-significant digits than the ones available thru R’s doubles. In the code
-below, we will use arbitrary-precision numbers and operations from the
-excellent
+Consider the \(396^(4k)\) term in the series. Suppose k=4. Computing
+this value in R yields a small number of significant digits:
+
+``` r
+396^(4*4)
+#> [1] 3.656983e+41
+```
+
+To properly represent the large terms in the series, we will use
+arbitrary-precision numbers and operations from the excellent
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
-package.
+package. When represented with 120 bits, the term above becomes:
+
+``` r
+Rmpfr::mpfr(396, 120)^(4*4)
+#> 1 'mpfr' number of precision  120   bits 
+#> [1] 365698328077754498546241794891999342493696
+```
 
 -----
 
-Load libraries
+Load the arbitrary-precision library
 
 ``` r
-library(tidyverse)
 library(Rmpfr) # use this for arbitrary-precision floats
 ```
 
@@ -28,25 +39,6 @@ We will be using 120 bits of representation precision:
 ``` r
 bits <- 120
 ```
-
-Consider the \(396^(4k)\) term in the series. Suppose k=4. In R:
-
-``` r
-396^(4*4)
-```
-
-    ## [1] 3.656983e+41
-
-However, when represented with 120 bits, the same number becomes:
-
-``` r
-mpfr(396, bits)^(4*4)
-```
-
-    ## 1 'mpfr' number of precision  120   bits 
-    ## [1] 365698328077754498546241794891999342493696
-
------
 
 One term of the R-S series and its front coefficient:
 
@@ -74,27 +66,25 @@ Only 5 iterations and we’re pretty close:
 
 ``` r
 rs_series(5)
+#> 5 'mpfr' numbers of precision  120   bits 
+#> [1] 3.141592730013305660313996189025215515
+#> [2] 3.141592653589793877998905826306013092
+#> [3] 3.141592653589793238462649065702758895
+#> [4]  3.14159265358979323846264338327955527
+#> [5] 3.141592653589793238462643383279502882
 ```
-
-    ## 5 'mpfr' numbers of precision  120   bits 
-    ## [1] 3.141592730013305660313996189025215515
-    ## [2] 3.141592653589793877998905826306013092
-    ## [3] 3.141592653589793238462649065702758895
-    ## [4]  3.14159265358979323846264338327955527
-    ## [5] 3.141592653589793238462643383279502882
 
 Error from π computed internally by Rmpfr:
 
 ``` r
 rs_series(5)-Const("pi",bits)
+#> 5 'mpfr' numbers of precision  120   bits 
+#> [1]   7.642351242185135280574571263059095384e-8
+#> [2]   6.39536262443026510207448352094098835e-16
+#> [3]  5.682423256010174379301934938494086872e-24
+#> [4]  5.238529448733281520312260003831002306e-32
+#> [5] -3.009265538105056020399965535288948935e-36
 ```
-
-    ## 5 'mpfr' numbers of precision  120   bits 
-    ## [1]   7.642351242185135280574571263059095384e-8
-    ## [2]   6.39536262443026510207448352094098835e-16
-    ## [3]  5.682423256010174379301934938494086872e-24
-    ## [4]  5.238529448733281520312260003831002306e-32
-    ## [5] -3.009265538105056020399965535288948935e-36
 
 Mind-blowing convergence of π digits through the Ramanujan-Sato series\!
 😄

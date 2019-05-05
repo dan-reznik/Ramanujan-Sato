@@ -3,20 +3,37 @@ title: "Computing π w/ Ramanujan-Sato"
 output: github_document
 ---
 
+```{r,echo=F}
+knitr::opts_chunk$set(
+  cache=T,
+  collapse=T,
+  comment="#>"
+)
+```
+
 One of [Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series) Formulas for π (1917):
 
 ```{r,echo=F,out.width="50%",fig.align="center"}
 knitr::include_graphics("pics/ramanujan-sato.png")
 ```
 
-The large factorials and exponents in the series' terms require more significant digits than the ones available thru R's doubles. In the code below, we will use arbitrary-precision numbers and operations from the excellent [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf) package.
+Consider the $396^(4k)$ term in the series. Suppose k=4. Computing this value in R yields a small number of significant digits:
+
+```{r}
+396^(4*4)
+```
+
+To properly represent the large terms in the series, we will use arbitrary-precision numbers and operations from the excellent [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf) package. When represented with 120 bits, the term above becomes:
+
+```{r}
+Rmpfr::mpfr(396, 120)^(4*4)
+```
 
 ***
 
-Load libraries
+Load the arbitrary-precision library
 
 ```{r,message=F}
-library(tidyverse)
 library(Rmpfr) # use this for arbitrary-precision floats
 ```
 
@@ -25,20 +42,6 @@ We will be using 120 bits of representation precision:
 ```{r}
 bits <- 120
 ```
-
-Consider the $396^(4k)$ term in the series. Suppose k=4. In R:
-
-```{r}
-396^(4*4)
-```
-
-However, when represented with 120 bits, the same number becomes:
-
-```{r}
-mpfr(396, bits)^(4*4)
-```
-
-***
 
 One term of the R-S series and its front coefficient:
 
