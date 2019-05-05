@@ -9,12 +9,13 @@ Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
 The incredible thing about this formula is its exponential speed of
-convergence, owing to the \(396^(4k)\) term in the denominator.
+convergence, owing to the \(396^(4k)\) term in the denominator. This
+also places high requirements on number representation precision.
 
-However, this term grows rather quickly and will quickly overflow
-floating-point numbers in most programming languages. As an example,
-suppose k=4. 53-bit doubles in R can represent up to 22 significant
-digits:
+Even for small k, this term will quickly require more significant digits
+than provided by floating-point numbers in most programming languages.
+As an example, suppose k=4. R uses 53-bit doubles, which can represent
+up to 22 significant digits:
 
 ``` r
 print(396^(4*4),digits=22)
