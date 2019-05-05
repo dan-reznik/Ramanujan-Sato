@@ -8,17 +8,9 @@ Formulas for π (1917):
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
 The large factorials and exponents in the series’ terms require more
-significant digits than the ones available thru R’s doubles. For
-example, notice the precision loss after the 16th digit:
-
-``` r
-sprintf("%.20f",1.12345678901234567890)
-```
-
-    ## [1] "1.12345678901234569125"
-
-To remedy that we will use arbitrary-precision numbers and operations
-from the
+significant digits than the ones available thru R’s doubles. In the code
+below, we will use arbitrary-precision numbers and operations from the
+excellent
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
 package.
 
