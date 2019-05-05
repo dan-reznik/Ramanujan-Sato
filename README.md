@@ -8,7 +8,7 @@ Formulas for π (1917):
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
 To correctly calculate this series we will need floating point precision
-far superior to R’s defaults. We will be using the `Rmpfr` package.
+far superior to R’s 32-bit floats. We will be using the `Rmpfr` package.
 
 -----
 
