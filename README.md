@@ -17,7 +17,8 @@ print(396^(4*4),digits=22)
 
 Arbitrary-precision numbers are available with the excellent
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
-package. With 120-bits, all the 42 digits of the above number are shown:
+package. 120-bit precision is more than enough to represent the above
+term exactly, i.e., an integer number with 42 digits:
 
 ``` r
 Rmpfr::mpfr(396, 120)^(4*4)
