@@ -7,8 +7,10 @@ Formulas for π (1917):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
-To correctly calculate this series we will need floating point precision
-far superior to R’s 32-bit floats. We will be using the `Rmpfr` package.
+We will attempt to calculate π using this fast-converging series. The
+large factorials and exponents in the series’ terms will quickly
+overflow R’s 32-bit floats (range: 1.4e-45 to 3e38). We will be using
+arbitrary-precision arithmetic from the `Rmpfr` package.
 
 -----
 
@@ -71,7 +73,8 @@ rs_cumsum(5)-Const("pi",bits)
     ## [4]  5.238529448733281520312260003831002306e-32
     ## [5] -3.009265538105056020399965535288948935e-36
 
-Mind-blowing convergence of π digits\! 😄
+Mind-blowing convergence of π digits through the Ramanujan-Sato series\!
+😄
 
 -----
 

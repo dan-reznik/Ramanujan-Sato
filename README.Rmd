@@ -9,7 +9,7 @@ One of [Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_ser
 knitr::include_graphics("pics/ramanujan-sato.png")
 ```
 
-To correctly calculate this series we will need floating point precision far superior to R's 32-bit floats. We will be using the `Rmpfr` package.
+We will attempt to calculate π using this fast-converging series. The large factorials and exponents in the series' terms will quickly overflow R's 32-bit floats (range: 1.4e-45 to 3e38). We will be using arbitrary-precision arithmetic from the `Rmpfr` package.
 
 ***
 
@@ -58,7 +58,7 @@ Error from π computed internally by Rmpfr:
 rs_cumsum(5)-Const("pi",bits)
 ```
 
-Mind-blowing convergence of π digits! `r emo::ji("smile")`
+Mind-blowing convergence of π digits through the Ramanujan-Sato series! `r emo::ji("smile")`
 
 *** 
 
