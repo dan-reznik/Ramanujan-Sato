@@ -90,7 +90,7 @@ Only 5 iterations and we're pretty close:
 rs_series(5)
 ```
 
-Error from π computed internally by Rmpfr:
+Deviation from a high-precision π computed internally by Rmpfr shrinks at every iteration:
 
 ```{r}
 rs_series(5)-Const("pi",bits)

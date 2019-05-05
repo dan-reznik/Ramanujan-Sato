@@ -96,7 +96,8 @@ rs_series(5)
 #> [5] 3.141592653589793238462643383279502882
 ```
 
-Error from π computed internally by Rmpfr:
+Deviation from a high-precision π computed internally by Rmpfr shrinks
+at every iteration:
 
 ``` r
 rs_series(5)-Const("pi",bits)
