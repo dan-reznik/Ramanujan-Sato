@@ -1,9 +1,9 @@
-Computing pi (π) w/ Ramanujan-Sato
+Computing π w/ Ramanujan-Sato
 ================
 
 One of
 [Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)
-Formulas for \(pi\) (1917):
+Formulas for π (1917):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
@@ -38,19 +38,19 @@ rs_term <- function(k) {
 }
 ```
 
-Calculates \(pi\) from 1 to kmax+1 iterations:
+Calculates π w/ kmax iterations of the R-J formula:
 
 ``` r
 rs_cumsum <- function(kmax) {
-  terms <- rs_term(mpfr(0:kmax,bits))
+  terms <- rs_term(mpfr(0:(kmax-1),bits))
   (rs_coeff/cumsum(terms))
 }
 ```
 
-Four iterations places the number pretty close to \(pi\)
+Only 5 iterations and we’re pretty close\!
 
 ``` r
-rs_cumsum(4)
+rs_cumsum(5)
 ```
 
     ## 5 'mpfr' numbers of precision  120   bits 
@@ -60,10 +60,10 @@ rs_cumsum(4)
     ## [4]  3.14159265358979323846264338327955527
     ## [5] 3.141592653589793238462643383279502882
 
-Difference from \(pi\) computed internally by Rmpfr:
+Error from π computed internally by Rmpfr:
 
 ``` r
-rs_cumsum(4)-Const("pi",bits)
+rs_cumsum(5)-Const("pi",bits)
 ```
 
     ## 5 'mpfr' numbers of precision  120   bits 
@@ -73,7 +73,7 @@ rs_cumsum(4)-Const("pi",bits)
     ## [4]  5.238529448733281520312260003831002306e-32
     ## [5] -3.009265538105056020399965535288948935e-36
 
-Ramanujan-Sato convergence is astounding\! 😄
+π through Ramanujan-Sato is mind-blowing\! 😄
 
 -----
 
