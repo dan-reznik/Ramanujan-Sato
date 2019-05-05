@@ -1,6 +1,8 @@
 Computing π w/ Ramanujan-Sato
 ================
 
+### Introduction
+
 [Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan)
 was one of history’s most gifted Mathematicians. In 1917 he discovered
 the following formula for 1/π known as the “[Ramanujan-Sato
@@ -35,9 +37,7 @@ Rmpfr::mpfr(396, 120)^(4*4)
 
 So in what follows we will be using this library.
 
------
-
-Load the arbitrary-precision library
+### Load the arbitrary-precision library
 
 ``` r
 library(Rmpfr) # use this for arbitrary-precision floats
@@ -70,6 +70,8 @@ rs_series <- function(kmax) {
   (rs_coeff/cumsum(terms))
 }
 ```
+
+### Calculate π
 
 Only 5 iterations and we’re pretty close:
 
