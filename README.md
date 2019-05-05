@@ -1,30 +1,38 @@
 Computing π w/ Ramanujan-Sato
 ================
 
-One of
-[Ramanujan-Sato](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)
-Formulas for π (1917):
+[Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan)
+was one of history’s most gifted Mathematicians. In 1917 he discovered
+the following formula for 1/π known as the "[Ramanujan-Sato
+Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series):
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
-Consider the \(396^(4k)\) term in the series. Suppose k=4. R 53-bit
-doubles can represent up to 22 significant digits:
+The incredible thing about this formula is its exponential speed of
+convergence, owing to the \(396^(4k)\) term in the denominator.
+
+However, this term grows rather quickly and will quickly overflow
+floating-point numbers in most programming languages. As an example,
+suppose k=4. 53-bit doubles in R can represent up to 22 significant
+digits:
 
 ``` r
 print(396^(4*4),digits=22)
 #> [1] 3.6569832807775449e+41
 ```
 
-Arbitrary-precision numbers are available with the excellent
+Via the arbitrary-precision
 [Rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf)
-package. 120-bit precision is more than enough to represent the above
-term exactly, i.e., an integer number with 42 digits:
+package (use, say 120 bits), we can see the number above is actually an
+integer w/ 42 digits:
 
 ``` r
 Rmpfr::mpfr(396, 120)^(4*4)
 #> 1 'mpfr' number of precision  120   bits 
 #> [1] 365698328077754498546241794891999342493696
 ```
+
+So in what follows we will be using this library.
 
 -----
 
