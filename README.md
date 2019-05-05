@@ -1,4 +1,4 @@
-Computing Pi w/ Ramanujan-Sato
+Computing pi (π) w/ Ramanujan-Sato
 ================
 
 One of
@@ -77,4 +77,4 @@ Ramanujan-Sato convergence is astounding\! 😄
 
 -----
 
-Dan S. Reznik, May 2019
+© 2019 Dan S. Reznik

@@ -1,5 +1,5 @@
 ---
-title: "Computing Pi w/ Ramanujan-Sato"
+title: "Computing pi (π) w/ Ramanujan-Sato"
 output: github_document
 ---
 
@@ -64,4 +64,4 @@ Ramanujan-Sato convergence is astounding! `r emo::ji("smile")`
 
 *** 
 
-Dan S. Reznik, May 2019
+© 2019 Dan S. Reznik
