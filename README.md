@@ -16,6 +16,10 @@ convergence. In turn this places strong requirements on the precision
 with which large numbers are represented. Below we show the growth of
 the three large terms in the series, for k=1 to 5:
 
+``` r
+library(dplyr)
+```
+
 | k |       (4k)\! |   (k\!)^4 |     396^(4k) |
 | :-: | -----------: | --------: | -----------: |
 | 1 | 2.400000e+01 |         1 | 2.459126e+10 |
@@ -25,14 +29,14 @@ the three large terms in the series, for k=1 to 5:
 | 5 | 2.432902e+18 | 207360000 | 8.992982e+51 |
 
 Notice that for small k, \(396^(4k)\) grows fastest, though above a
-certain k factorials will take over, k\! \~ O(k^k).
+certain k factorials will take over, k\! ~ O(k^k).
 
 53-bit doubles in `R` are limited to 22 significant digits. So for k\>2,
 this term will be truncated. Take k=4 as an example:
 
 ``` r
 print(396^(4*4),digits=22)
-#> [1] 3.6569832807775449e+41
+#> [1] 3.656983280777544915654e+41
 ```
 
 Via the arbitrary-precision
@@ -50,20 +54,17 @@ start by loading the arbitrary-precision library.
 
 ### Load the arbitrary-precision library
 
+We will be using 240 bits of precision:
+
 ``` r
 library(Rmpfr) # use this for arbitrary-precision floats
-```
-
-We will be using 120 bits of representation precision:
-
-``` r
-bits <- 120
+bits <- 240
 ```
 
 One term of the R-S series and its front coefficient:
 
 ``` r
-sqrt2 <- sqrt(mpfr(2L, bits))
+sqrt2 <- sqrt(mpfr("2", bits))
 rs_coeff <- 9801L/(2L*sqrt2)
 
 rs_term <- function(k) {
@@ -88,24 +89,32 @@ Only 5 iterations and we’re pretty close:
 
 ``` r
 rs_series(5)
-#> 5 'mpfr' numbers of precision  120   bits 
-#> [1] 3.141592730013305660313996189025215515
-#> [2] 3.141592653589793877998905826306013092
-#> [3] 3.141592653589793238462649065702758895
-#> [4]  3.14159265358979323846264338327955527
-#> [5] 3.141592653589793238462643383279502882
+#> 5 'mpfr' numbers of precision  240   bits 
+#> [1] 3.141592730013305660313996189025215518599581607110033559656536290128551455
+#> [2]   3.1415926535897938779989058263060130942166450293228488791739637915057844
+#> [3] 3.141592653589793238462649065702758898156677480462334781168399595644739792
+#> [4] 3.141592653589793238462643383279555273159974210420379911216703896006945788
+#> [5] 3.141592653589793238462643383279502884197663818133030623976165590998553105
 ```
 
-Exponent of deviation from a high-precision π computed internally by
-Rmpfr. In 5 iterations, deviation is of the order of 10^-36:
+Computes π with Mpfr
+
+``` r
+piMpfr <- Const("pi",bits)
+piMpfr
+#> 1 'mpfr' number of precision  240   bits 
+#> [1] 3.141592653589793238462643383279502884197169399375105820974944592307816407
+```
+
+In only 5 iterations, deviation is of the order of 10^-39:
 
 ``` r
 (rs_series(5) - Const("pi", bits)) %>%
   abs %>%
   log10 %>%
   round
-#> 5 'mpfr' numbers of precision  120   bits 
-#> [1]  -7 -15 -23 -31 -36
+#> 5 'mpfr' numbers of precision  240   bits 
+#> [1]  -7 -15 -23 -31 -39
 ```
 
 Mind-blowing convergence to the value of π afforded by the
