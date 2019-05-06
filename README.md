@@ -106,16 +106,23 @@ piMpfr
 #> [1] 3.141592653589793238462643383279502884197169399375105820974944592307816407
 ```
 
-In only 5 iterations, deviation is of the order of 10^-39:
+In only 5 iterations, deviation is of the order of
+10^-39:
 
 ``` r
-(rs_series(5) - Const("pi", bits)) %>%
-  abs %>%
-  log10 %>%
-  round
-#> 5 'mpfr' numbers of precision  240   bits 
-#> [1]  -7 -15 -23 -31 -39
+get_dev_exp <- function(v1,v2) abs(v1-v2) %>% log10 %>% round %>% asNumeric()
+tibble(iter=1:5,
+       dev=get_dev_exp(rs_series(5),piMpfr)) %>%
+  knitr::kable()
 ```
+
+| iter |  dev |
+| ---: | ---: |
+|    1 |  \-7 |
+|    2 | \-15 |
+|    3 | \-23 |
+|    4 | \-31 |
+|    5 | \-39 |
 
 Mind-blowing convergence to the value of π afforded by the
 Ramanujan-Sato series\! 😄

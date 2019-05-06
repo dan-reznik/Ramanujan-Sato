@@ -101,10 +101,10 @@ piMpfr
 In only 5 iterations, deviation is of the order of 10^-39:
 
 ```{r}
-(rs_series(5) - Const("pi", bits)) %>%
-  abs %>%
-  log10 %>%
-  round
+get_dev_exp <- function(v1,v2) abs(v1-v2) %>% log10 %>% round %>% asNumeric()
+tibble(iter=1:5,
+       dev=get_dev_exp(rs_series(5),piMpfr)) %>%
+  knitr::kable()
 ```
 
 Mind-blowing convergence to the value of π afforded by the Ramanujan-Sato series! `r emo::ji("smile")`
