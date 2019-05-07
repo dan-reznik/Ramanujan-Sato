@@ -4,29 +4,28 @@ Computing π w/ Ramanujan-Sato
 ### Introduction
 
 [Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan)
-(1887-1920) is one of history’s most gifted Mathematicians, departing at
-only 33 years of age. In 1917 he discovered several formulas for π. The
-one below is known as the “[Ramanujan-Sato
+(1887-1920) is one of history’s most gifted Mathematicians, sadly
+departing before he was even 33 years of age.
+
+In 1917 Srinivasa discovered several formulas for π. The one below is
+known as the “[Ramanujan-Sato
 Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
 
 <img src="pics/ramanujan-sato.png" width="50%" style="display: block; margin: auto;" />
 
 The incredible thing about this formula is its exponential speed of
-convergence. In turn this places strong requirements on the precision
-with which large numbers are represented. Below we show the growth of
-the three large terms in the series, for k=1 to 5:
+convergence (the tree large terms simplify to O((99^(-4k)\*k^(-3/2)) for
+large k). In turn, the ratios must be at least the precision we would
+like to approximate π with. Below we show the growth of the three large
+terms in the series, and the exponent of their product, for k=1 to 5:
 
-``` r
-library(dplyr)
-```
-
-| k |       (4k)\! |   (k\!)^4 |     396^(4k) |
-| :-: | -----------: | --------: | -----------: |
-| 1 | 2.400000e+01 |         1 | 2.459126e+10 |
-| 2 | 4.032000e+04 |        16 | 6.047300e+20 |
-| 3 | 4.790016e+08 |      1296 | 1.487107e+31 |
-| 4 | 2.092279e+13 |    331776 | 3.656983e+41 |
-| 5 | 2.432902e+18 | 207360000 | 8.992982e+51 |
+| k |    t1=(4k)\! | t2=(k\!)^4 |  t3=396^(4k) | O\[t1/(t2\*t3)\] |
+| :-: | -----------: | ---------: | -----------: | :--------------: |
+| 1 | 2.400000e+01 |          1 | 2.459126e+10 |       \-9        |
+| 2 | 4.032000e+04 |         16 | 6.047300e+20 |       \-17       |
+| 3 | 4.790016e+08 |       1296 | 1.487107e+31 |       \-26       |
+| 4 | 2.092279e+13 |     331776 | 3.656983e+41 |       \-34       |
+| 5 | 2.432902e+18 |  207360000 | 8.992982e+51 |       \-42       |
 
 Notice that for small k, \(396^(4k)\) grows fastest, though above a
 certain k factorials will take over, k\! ~ O(k^k).
@@ -57,6 +56,7 @@ start by loading the arbitrary-precision library.
 We will be using 240 bits of precision:
 
 ``` r
+library(dplyr) # to use "%>%" and "tibble"
 library(Rmpfr) # use this for arbitrary-precision floats
 bits <- 240
 ```
@@ -74,7 +74,8 @@ rs_term <- function(k) {
 }
 ```
 
-Calculates π w/ kmax iterations of the R-S formula:
+Computes π w/ kmax iterations of the R-S formula (reciprocal of original
+formula):
 
 ``` r
 rs_series <- function(kmax) {
@@ -97,7 +98,7 @@ rs_series(5)
 #> [5] 3.141592653589793238462643383279502884197663818133030623976165590998553105
 ```
 
-Computes π with Mpfr
+Obtains high-precision π computed internally by `mpfr` package:
 
 ``` r
 piMpfr <- Const("pi",bits)
@@ -106,23 +107,16 @@ piMpfr
 #> [1] 3.141592653589793238462643383279502884197169399375105820974944592307816407
 ```
 
-In only 5 iterations, deviation is of the order of
-10^-39:
+Order of error vs iteration, notice we are expanding the accuracy by 8
+digits per iteration:
 
-``` r
-get_dev_exp <- function(v1,v2) abs(v1-v2) %>% log10 %>% round %>% asNumeric()
-tibble(iter=1:5,
-       dev=get_dev_exp(rs_series(5),piMpfr)) %>%
-  knitr::kable()
-```
-
-| iter |  dev |
-| ---: | ---: |
-|    1 |  \-7 |
-|    2 | \-15 |
-|    3 | \-23 |
-|    4 | \-31 |
-|    5 | \-39 |
+| iter | error | newDigits |
+| ---: | ----: | --------: |
+|    1 |   \-7 |        NA |
+|    2 |  \-15 |         8 |
+|    3 |  \-23 |         8 |
+|    4 |  \-31 |         8 |
+|    5 |  \-39 |         8 |
 
 Mind-blowing convergence to the value of π afforded by the
 Ramanujan-Sato series\! 😄

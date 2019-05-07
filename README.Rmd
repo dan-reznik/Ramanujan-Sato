@@ -14,24 +14,26 @@ knitr::opts_chunk$set(
 
 ### Introduction
 
-[Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan) (1887-1920) is one of history's most gifted Mathematicians, departing at only 33 years of age. In 1917 he discovered several formulas for π. The one below is known as the "[Ramanujan-Sato Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)": 
+[Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan) (1887-1920) is one of history's most gifted Mathematicians, sadly departing before he was even 33 years of age.
+
+In 1917 Srinivasa discovered several formulas for π. The one below is known as the "[Ramanujan-Sato Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)": 
 
 ```{r,echo=F,out.width="50%",fig.align="center"}
 knitr::include_graphics("pics/ramanujan-sato.png")
 ```
 
-The incredible thing about this formula is its exponential speed of convergence. In turn this places strong requirements on the precision with which large numbers are represented. Below we show the growth of the three large terms in the series, for k=1 to 5:
-
-```{r,message=F}
-library(dplyr)
-```
-
+The incredible thing about this formula is its exponential speed of convergence (the tree large terms simplify to O((99^(-4k)*k^(-3/2)) for large k). In turn, the ratios must be at least the precision we would like to approximate π with. Below we show the growth of the three large terms in the series, and the exponent of their product, for k=1 to 5:
 
 ```{r,echo=F,warning=F,message=F}
+library(magrittr)
+stirlingFactorial <- function(k) sqrt(2*pi*k)*(k/exp(1))^k
+stirlingLogFactorial <- function(k) k*log(n)-k+.5*log(2*pi*k)
+approx_ratio <- function(k) 0.12698727186848194/(99^(4*k)*k^1.5)
 tibble::tibble(k=1:5,
-               `(4k)!`=factorial(4*k),
-               `(k!)^4`=factorial(k)^4.,
-               `396^(4k)`=396^(4*k)) %>%
+               `t1=(4k)!`=factorial(4*k),
+               `t2=(k!)^4`=factorial(k)^4.,
+               `t3=396^(4k)`=396^(4*k),
+               `O[t1/(t2*t3)]`=log10(approx_ratio(k))%>%round) %>%
   knitr::kable(align = "crrr") %>%
   kableExtra::kable_styling(bootstrap_options = "striped", full_width = F,position="center")
 ```
@@ -57,6 +59,7 @@ Total integer precision is imperative in the series computation, so we start by 
 We will be using 240 bits of precision:
 
 ```{r,message=F}
+library(dplyr) # to use "%>%" and "tibble"
 library(Rmpfr) # use this for arbitrary-precision floats
 bits <- 240
 ```
@@ -74,7 +77,7 @@ rs_term <- function(k) {
 }
 ```
 
-Calculates π w/ kmax iterations of the R-S formula:
+Computes π w/ kmax iterations of the R-S formula (reciprocal of original formula):
 
 ```{r}
 rs_series <- function(kmax) {
@@ -91,20 +94,22 @@ Only 5 iterations and we're pretty close:
 rs_series(5)
 ```
 
-Computes π with Mpfr
+Obtains high-precision π computed internally by `mpfr` package:
 
 ```{r}
 piMpfr <- Const("pi",bits)
 piMpfr
 ```
 
-In only 5 iterations, deviation is of the order of 10^-39:
+Order of error vs iteration, notice we are expanding the accuracy by 8 digits per iteration:
 
-```{r}
+```{r,echo=F,kable.NA=F}
 get_dev_exp <- function(v1,v2) abs(v1-v2) %>% log10 %>% round %>% asNumeric()
 tibble(iter=1:5,
-       dev=get_dev_exp(rs_series(5),piMpfr)) %>%
-  knitr::kable()
+       error=get_dev_exp(rs_series(5),piMpfr),
+       newDigits=lag(error)-error) %>%
+  #purrr::set_names("iter","$|\\pi_{rs}-\\pi_{mpfr}|$","new digits") %>%
+  knitr::kable(escape=F)
 ```
 
 Mind-blowing convergence to the value of π afforded by the Ramanujan-Sato series! `r emo::ji("smile")`
