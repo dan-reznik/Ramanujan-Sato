@@ -7,6 +7,8 @@ Computing π w/ Ramanujan-Sato
 (1887-1920) is one of history’s most gifted Mathematicians, sadly
 departing before he was even 33 years of age.
 
+<img src="pics/Srinivasa_Ramanujan.jpg" width="25%" style="display: block; margin: auto;" />
+
 In 1917 Srinivasa discovered several formulas for π. The one below is
 known as the “[Ramanujan-Sato
 Series](https://en.wikipedia.org/wiki/Ramanujan%E2%80%93Sato_series)”:
@@ -28,14 +30,14 @@ terms in the series, and the exponent of their product, for k=1 to 5:
 | 5 | 2.432902e+18 |  207360000 | 8.992982e+51 |       \-42       |
 
 Notice that for small k, \(396^(4k)\) grows fastest, though above a
-certain k factorials will take over, k\! ~ O(k^k).
+certain k factorials will take over, k\! \~ O(k^k).
 
 53-bit doubles in `R` are limited to 22 significant digits. So for k\>2,
 this term will be truncated. Take k=4 as an example:
 
 ``` r
 print(396^(4*4),digits=22)
-#> [1] 3.656983280777544915654e+41
+#> [1] 3.6569832807775449e+41
 ```
 
 Via the arbitrary-precision
@@ -110,13 +112,149 @@ piMpfr
 Order of error vs iteration, notice we are expanding the accuracy by 8
 digits per iteration:
 
-| iter | error | newDigits |
-| ---: | ----: | --------: |
-|    1 |   \-7 |        NA |
-|    2 |  \-15 |         8 |
-|    3 |  \-23 |         8 |
-|    4 |  \-31 |         8 |
-|    5 |  \-39 |         8 |
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:right;">
+
+iter
+
+</th>
+
+<th style="text-align:right;">
+
+error
+
+</th>
+
+<th style="text-align:right;">
+
+newDigits
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+\-7
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+\-15
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+\-23
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+\-31
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+\-39
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 Mind-blowing convergence to the value of π afforded by the
 Ramanujan-Sato series\! 😄
