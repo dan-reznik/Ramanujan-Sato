@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan) (1887-1920) is one of history's most gifted Mathematicians, sadly departing before he was even 33 years of age.
 
-```{r,out.width="25%",echo=F}
+```{r,out.width="25%",echo=F,fig.align="center"}
 knitr::include_graphics("pics/Srinivasa_Ramanujan.jpg")
 ```
 
